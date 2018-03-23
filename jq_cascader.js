@@ -5,23 +5,23 @@
 
         $.fn.jqCascader = function (options, callback) {
 
-            //默认选项
             var opt = {
-                isClick: true,//默认是click触发,当设置为false为hover触发
-                color: 'red',//默认颜色是红色
-                subboxTips: '请选择',//默认第一页卡的内容是第一页卡内容
-                resultAry: ["请选择"],//默认选择结果是请选择
+                isClick: true,
+                color: 'red',
+                subboxTips: '请选择',
+                resultAry: ["请选择"],
                 borerBottomColor: null,
-                area: '',//显示结果
-                listIndex: 0,//当前
+                area: '',
+                listIndex: 0,
                 listTree: [],
                 isColor: false,
                 resultVal: '',
                 wrapHeight: 0,
                 hoverHeight: 0,
                 lastValue: 0,
-                curAry: [],//当前选中啥的数组
-                datas: [//例子数组
+                curAry: [],
+                rememberCur:[],
+                datas: [
                     {
                         value: 'ziyuan',
                         label: '资源',
@@ -74,30 +74,30 @@
             var cascaderObj = '<div class="cascader-wrap"> <div class="text-wrap" ref="textWrap"><span class="text"></span> <i class="arrow"></i></div> <div class="content-wrapper" style="display:none;"> <i class="close"></i> <div class="area-tab"></div><div class="area-content"> </div></div></div>';
 
             this.each(function () {
-                var $this = $(this);//获取目标
-                opt = $.extend(true, {}, opt, options); //和外部输入样式合并
+                var $this = $(this);
+                opt = $.extend(true, {}, opt, options);
                 $this.append(cascaderObj);
 
-                function init(opt) {//插件初始化需要做的工作
-                    var dataAry = opt.datas;//传入的数据
+                function init(opt) {
+                    var dataAry = opt.datas;
                     opt.listTree[0] = dataAry;
                     opt.wrapHeight = $this.height();
                     opt.hoverHeight = opt.wrapHeight + 1;
                     $this.find(".content-wrapper").css("top", opt.hoverHeight);
                     $this.find(".text").css("line-height", opt.wrapHeight + "px");
 
-                    if (opt.color) {//如果有自定义颜色,就改变默认颜色样式
+                    if (opt.color) {
                         colorSettings();
                     }
                     toSelectClose();
                     binds();
                     handleTab();
                     handleArea();
-                    tabColor()
+                    tabColor();
 
                 }
 
-                function setTag() {//标识符,如果同个页面实例化两个cascader,易于区分
+                function setTag() {
                     return 'cascader' + Math.random();
                 }
 
@@ -106,7 +106,7 @@
                     var resultShow = opt.resultAry[0];
                     $this.find('.text-wrap .text').html(resultShow);
                     $this.find('.cascader-wrap').attr('data-tag', tag);
-                    //绑定
+
                     $this.find('.cascader-wrap').mouseenter(function (e) {
                         toSelect();
                     });
@@ -127,7 +127,14 @@
                         var dataLabel = $(e.target).data('label');
                         var dataIndexAry = $(e.target).data('indexary');
                         var dataIndex = $(e.target).data('index');
+                        opt.rememberCur[dataIndexAry]=dataIndex;
                         selectProvince(dataValue, dataLabel, dataIndexAry, dataIndex);
+                        for(var i =0;i<opt.rememberCur.length;i++){
+                            var outer = ($this.find('.area-content').children('div')[i]);
+                            var li =   $(outer).find('li')[opt.rememberCur[i]];
+                            $(li).find('a').addClass('cur');
+                        }
+
                     });
                 }
 
@@ -174,7 +181,7 @@
                     if (!opt.isClick) {
                         return;
                     }
-                    store();//同样存储样式
+                    store();
                 }
 
                 function store() {
@@ -241,6 +248,8 @@
                     var child = opt.listTree[indexAry][index].children;
                     if (hasChild) {
                         opt.listTree.splice(indexAry + 1);
+                        opt.rememberCur.splice(indexAry + 1);
+
                     }
                     tabAry.splice(indexAry + 2);
                     if (child) {
@@ -255,21 +264,21 @@
                 }
 
                 function toSelect() {
-                    if (opt.isClick) {//如果此时触发方式是hover,就离开
+                    if (opt.isClick) {
                         return;
                     }
                     store();
                 }
 
                 function leave() {
-                    if (opt.isClick) {//如果当前能触发是click触发则不管
+                    if (opt.isClick) {
                         return;
                     }
                     restore();
                 }
 
                 function restore() {
-                    $this.find(".text-wrap").css("border-bottom", opt.borerBottomColor); //复原样式
+                    $this.find(".text-wrap").css("border-bottom", opt.borerBottomColor);
                     $this.find(".text-wrap").css("height", opt.wrapHeight);
                     selectClose();
                 }
@@ -279,7 +288,7 @@
                 }
 
                 function toSelectClose() {
-                    if (opt.isClick) { //如果触发是clic 对body绑定
+                    if (opt.isClick) {
                         $("body").click(function (e) {
                             var flag = false;
                             var ary = $(e.target).parents();
@@ -342,11 +351,11 @@
                     restore();
                     $this.find('.text-wrap .text').html(opt.area);
                     if (typeof callback == 'function') {
-                        callback({resultVal: opt.resultVal, restLabel: opt.area, lastValue: opt.lastValue});
+                        callback({valuepath: opt.resultVal, labelpath: opt.area, value: opt.lastValue});
                     }
 
                 }
-                init(opt);//初始化插件
+                init(opt);
 
             });
             return this;

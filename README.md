@@ -86,6 +86,8 @@ var callback = function(result) { //result为JSON格式,获取选择的结果
 
 
 ### 后续
-不定期优化增强
+1.加了选中高亮
+  ![image](https://github.com/niangkouss/pics/raw/master/jq_cascader_hightligh.png)
+
 
 
