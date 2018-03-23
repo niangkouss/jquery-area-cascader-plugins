@@ -1,0 +1,149 @@
+.cascader-wrap {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 99999;
+}
+
+.cascader-wrap a {
+	text-decoration: none;
+}
+
+.cascader-wrap .text-wrap {
+	min-width: 142px;
+	height: 100%;
+	background: #fff;
+	border: 1px solid #CECBCE;
+	padding: 0 24px 0 4px;
+	cursor: pointer;
+}
+
+.cascader-wrap .text-wrap .text {
+	display: block;
+	height: 100%;
+}
+
+.cascader-wrap .text-wrap .arrow {
+	display: block;
+	position: absolute;
+	top: 50%;
+	margin-top: -8.5px;
+	right: 4px;
+	width: 17px;
+	height: 17px;
+	background: url("./img/ico.png") no-repeat 3px 5px;
+	overflow: hidden;
+	transition: .5s;
+}
+
+.cascader-wrap .text-wrap .arrow.open {
+	transform: rotate(-180deg);
+}
+
+.cascader-wrap .content-wrapper {
+	/* display: none; */
+	position: absolute;
+	top: 40px;
+	left: 0;
+	border: 1px solid #CECBCE;
+	width: 500px;
+	padding: 12px 12px 15px;
+	background: #fff;
+	-moz-box-shadow: 0 0 5px #ddd;
+	-webkit-box-shadow: 0 0 5px #ddd;
+	box-shadow: 0 0 5px #ddd;
+	z-index: -2;
+}
+
+.cascader-wrap .content-wrapper i.close {
+	position: absolute;
+	z-index: 2;
+	top: 12px;
+	right: 12px;
+	width: 17px;
+	height: 17px;
+	background: url("./img/close.svg") no-repeat;
+	cursor: pointer;
+}
+
+.cascader-wrap .content-wrapper .area-tab {
+	cursor: default;
+	width: 100%;
+	height: 25px;
+	border-bottom: 2px solid #3380F4;
+	overflow: visible;
+}
+
+.cascader-wrap .content-wrapper .area-tab a {
+	position: relative;
+	float: left;
+	height: 23px;
+	line-height: 23px;
+	padding: 0 25px 1px 6px;
+	margin-right: 4px;
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	color: #005AA0;
+	text-align: center;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+.cascader-wrap .content-wrapper .area-tab a.cur {
+	height: 25px;
+	background-color: #fff;
+	border: 2px solid #3380F4;
+	border-bottom: 0;
+	padding: 0 25px 0 6px;
+	line-height: 22px;
+	text-decoration: none;
+}
+
+.cascader-wrap .area-tab a i {
+	background: url("./img/ico.png") no-repeat 0 5px;
+	position: absolute;
+	right: 6px;
+	top: 5px;
+	display: block;
+	width: 13px;
+	height: 16px;
+	overflow: hidden;
+	opacity: .5;
+}
+
+.cascader-wrap .area-lists {
+
+	padding-top: 10px;
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: -5px;
+	padding-left: 0;
+}
+
+.cascader-wrap .area-lists li {
+	padding: 0 0 0 15px;
+	line-height: 22px;
+	float: left;
+	clear: none;
+	list-style: none;
+}
+
+.cascader-wrap .area-lists li.long-area {
+	width: 175px;
+}
+
+.cascader-wrap .area-lists li a {
+	display: block;
+	padding: 0 4px;
+	color: #005aa0;
+}
+
+.cascader-wrap .area-lists li a.cur {
+	color: red
+}
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<style>
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+</style>
+<body>
+
+<link rel="stylesheet" href="jq_cascader.css">
+
+<div class="cascader1" style="width: 500px;height: 30px;"></div>
+<div class="cascader2" style="position:absolute;top:500px; width: 500px;height: 30px;"></div>
+
+<script
+		src="http://code.jquery.com/jquery-3.3.1.js"
+		integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+		crossorigin="anonymous"></script>
+<script src="jq_cascader.js"></script>
+
+
+<script>
+	$(".cascader1").jqCascader({},function (result) {
+        console.log(result);
+    });
+	$(".cascader2").jqCascader({
+		isClick:false,
+        color:'green',
+
+	});
+
+</script>
+</body>
+</html>
